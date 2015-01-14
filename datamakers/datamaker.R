@@ -2,7 +2,7 @@
 #each datamaker should take input seed (integer) and args (list), and output a list with names elements meta and input
 #the format of the meta and input elements should be defined in the README
 #
-eg.datamaker = function(seed,args){
+datamaker = function(seed,args){
 
   set.seed(seed)
   
