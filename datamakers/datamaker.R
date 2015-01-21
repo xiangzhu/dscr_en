@@ -57,8 +57,8 @@ datamaker = function(seed,args){
   Yvalid = Y[(Ntrain+Ntestt+1):N] 
 
   # 4. aggregate output args
-  meta = list(Xtestt=Xtestt, Ytestt=Ytestt, mybeta=mybeta)
-  input = list(Xtrain=Xtrain, Ytrain=Ytrain, Xvalid=Xvalid, Yvalid=Yvalid, Xtest=Xtest)
+  meta = list(Xtestt=Xtestt, Ytestt=Ytestt, mybeta=mybeta, resstd=resstd)
+  input = list(Xtrain=Xtrain, Ytrain=Ytrain, Xvalid=Xvalid, Yvalid=Yvalid, Xtestt=Xtestt)
  
   #end of meat of function
   
