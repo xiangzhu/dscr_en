@@ -3,7 +3,7 @@
 #the output should be a list of the appropriate "output" format (defined in the README)
 library(elasticnet)
 
-lasso.wrapper = function(input,args){
+ridge.wrapper = function(input,args){
 
   Xvalid = input$Xvalid
   Yvalid = input$Yvalid
