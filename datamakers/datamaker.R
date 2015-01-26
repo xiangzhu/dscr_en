@@ -35,11 +35,15 @@ datamaker = function(seed,args){
 	X = matrix(data=0, nrow=N, ncol=p)
 	q = round(p/4)
 	Z = rnorm(3, mean=0, sd=1)
-	E = matrix(data=rnorm(N*p, mean=0, sd=0.01), nrow=N, ncol=p)
+	E = matrix(data=rnorm(N*p, mean=0, sd=0.1), nrow=N, ncol=p)
+	# group 1: Z1 + Normal(0, 0.01)
 	X[, 1:q] = Z[1] + E[, 1:q]
+	# group 2: Z2 + Normal(0, 0.01)
 	X[, (q+1):(2*q)] = Z[2] + E[, (q+1):(2*q)]
+	# group 3: Z3 + Normal(0, 0.01)
 	X[, (2*q+1):(3*q)] = Z[3] + E[, (2*q+1):(3*q)]
-	X[, (3*q+1):p] = E[, (3*q+1):p]
+	# group 4: Normal(0, 1)
+	X[, (3*q+1):p] = E[, (3*q+1):p] * 10
 	rm(E)   
   }
 
