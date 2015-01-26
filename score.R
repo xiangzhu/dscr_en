@@ -9,3 +9,4 @@ score = function(data, output){
   estimation_mse = mean( (data$meta$mybeta - output$coefest)^2 )
 
   return(list(prediction_mse = prediction_mse, estimation_mse = estimation_mse))
+}
