@@ -9,8 +9,10 @@ elasticnet.wrapper = function(input,args){
   Yvalid = input$Yvalid
   Xtrain = input$Xtrain
   Ytrain = input$Ytrain
-	Mytune = args$Mytune
-  Myiter = args$Myiter
+  Mytune = args$Mytune
+
+  p = dim(Xtrain)[2]
+  Myiter = length(seq(1, p, 0.05));
   
   # decide tuning parameter
   lambda_list = c(0, 0.01, 0.1, 1, 10, 100)

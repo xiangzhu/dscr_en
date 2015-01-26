@@ -12,6 +12,9 @@ ridge.wrapper = function(input,args){
   Mytune = args$Mytune
   Myiter = args$Myiter
   
+  p = dim(Xtrain)[2]
+  Myiter = length(seq(1, p, 0.05));
+
   # decide tuning parameter
   lambda = 1;
   valid_mse = matrix(0, nrow=1, ncol=Myiter)

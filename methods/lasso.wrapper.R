@@ -10,8 +10,10 @@ lasso.wrapper = function(input,args){
   Xtrain = input$Xtrain
   Ytrain = input$Ytrain
   Mytune = args$Mytune
-  Myiter = args$Myiter
-  
+ 
+  p = dim(Xtrain)[2]
+  Myiter = length(seq(1, p, 0.05));
+ 
   # decide tuning parameter
   lambda = 0;
   valid_mse = matrix(0, nrow=1, ncol=Myiter)
