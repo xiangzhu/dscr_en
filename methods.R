@@ -6,5 +6,9 @@ methods=list()
 
 methods[[1]] = list(name="Lasso", fn=lasso.wrapper, args=list(Mytune=NULL))
 methods[[2]] = list(name="ElasticNet", fn=elasticnet.wrapper, args=list(Mytune=NULL))
-methods[[3]] = list(name="Ridge", fn=ridge.wrapper, args=list(Mytune=NULL))
-methods[[4]] = list(name="NaiveElasticNet", fn=naive.elasticnet.wrapper, args=list(Mytune=NULL))
+methods[[3]] = list(name="NaiveElasticNet", fn=naive.elasticnet.wrapper, args=list(Mytune=NULL))
+
+methods[[4]] = list(name="Lasso_10fold", fn=lasso.wrapper, args=list(Mytune=10))
+methods[[5]] = list(name="ElasticNet_10fold", fn=elasticnet.wrapper, args=list(Mytune=10))
+methods[[6]] = list(name="NaiveElasticNet_10fold", fn=naive.elasticnet.wrapper, args=list(Mytune=10))
+
