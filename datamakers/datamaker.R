@@ -58,7 +58,7 @@ datamaker = function(seed,args){
 
   # 4. aggregate output args
   meta = list(Xtestt=Xtestt, Ytestt=Ytestt, mybeta=mybeta, resstd=resstd)
-  input = list(Xtrain=Xtrain, Ytrain=Ytrain, Xvalid=Xvalid, Yvalid=Yvalid, Xtestt=Xtestt)
+  input = list(Xtrain=Xtrain, Ytrain=Ytrain, Xvalid=Xvalid, Yvalid=Yvalid)
  
   #end of meat of function
   
