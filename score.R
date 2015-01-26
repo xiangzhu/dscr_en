@@ -3,8 +3,10 @@
 score = function(data, output){
 #insert calculations here; return a named list of results
   
+  truevalue = data$meta$Xtestt %*% data$meta$mybeta
   prediction = output$predict(data$meta$Xtestt)$fit
-  prediction_mse = mean( (data$meta$Ytestt - prediction)^2 ) - (data$meta$resstd)^2
+  
+  prediction_mse = mean( (truevalue - prediction)^2 ) - (data$meta$resstd)^2
   
   estimation_mse = mean( (data$meta$mybeta - output$coefest)^2 )
 
