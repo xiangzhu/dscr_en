@@ -4,8 +4,7 @@ methods=list()
 # like this: 
 #methods[[1]] = list(name="methodname",fn = function,args=NULL)
 
-methods[[1]] = list(name="Lasso", fn=lasso.wrapper, args=NULL)
-methods[[2]] = list(name="ElasticNet", fn=elasticnet.wrapper, args=NULL)
-methods[[3]] = list(name="Ridge", fn=ridge.wrapper, args=NULL)
-methods[[4]] = list(name="NaiveElasticNet", fn=naive.elasticnet.wrapper, args=NULL)
- 
+methods[[1]] = list(name="Lasso", fn=lasso.wrapper, args=list(Mytune=NULL))
+methods[[2]] = list(name="ElasticNet", fn=elasticnet.wrapper, args=list(Mytune=NULL))
+methods[[3]] = list(name="Ridge", fn=ridge.wrapper, args=list(Mytune=NULL))
+methods[[4]] = list(name="NaiveElasticNet", fn=naive.elasticnet.wrapper, args=list(Mytune=NULL))
