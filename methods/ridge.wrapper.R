@@ -9,17 +9,39 @@ ridge.wrapper = function(input,args){
   Yvalid = input$Yvalid
   Xtrain = input$Xtrain
   Ytrain = input$Ytrain
-  Xtestt = input$Xtestt
-	
-  # 1. select the tuning parameter using the validation set
-  lambda = 1	
-
-  # 2. fit the model using the training set 
+  Mytune = args$Mytune
+  Myiter = args$Myiter
+  
+  # decide tuning parameter
+  lambda = 1;
+  valid_mse = matrix(0, nrow=1, ncol=Myiter)
+  
+  if(is.null(Mytune)){
+    # the method used in Zou and Hastie (2005)
+      testobj = enet(Xtrain, Ytrain, lambda)
+      for(j in 1:Myiter){
+        tuning = 1+(j-1)*0.05
+        Yvalid_fitted = predict(testobj, Xvalid, s=tuning, type="fit", mode="step")$fit
+        valid_mse[j] = mean((Yvalid_fitted-Yvalid)^2)
+      }
+    optimS = (which(valid_mse == min(valid_mse), arr.ind = TRUE)[2]-1)*0.05+1
+  } else{
+    # K-fold CV
+      Xmerge = rbind(Xvalid, Xtrain)
+      Ymerge = rbind(Yvalid, Ytrain)
+      cvobj = cv.enet(Xmerge, Ymerge, K=Mytune, lambda, s=seq(1,1+(Myiter-1)*0.05,length=Myiter), mode="step", plot.it=FALSE, se=FALSE)
+      optimS = (which.min(cvobj$cv)-1)*0.05+1
+  }
+    
+  # fit the model on training set
   myobj = enet(Xtrain, Ytrain, lambda)
-  CPath = myobj$Cp
-  minCp = which.min(CPath)
-  predict = predict.enet(myobj, Xtestt, s=minCp, type="fit", mode="step", naive=FALSE)$fit
-  coefest = predict.enet(myobj, s=minCp, type="coef", mode="step", naive=FALSE)$coefficients 
+  
+  # output prediction function and point estimate
+  predict <- function(Xnew){
+    predict.enet(myobj, Xnew, s=optimS, type="fit", mode="step", naive=FALSE)
+  }
+  
+  coefest = predict.enet(myobj, s=optimS, type="coef", mode="step", naive=FALSE)$coefficients 
 
   return(list(predict=predict, coefest=coefest))
 }
