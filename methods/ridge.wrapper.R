@@ -18,7 +18,7 @@ ridge.wrapper = function(input,args){
   
   # output prediction function and point estimate
   predict <- function(Xnew){
-    predict(myobj, Xnew, s="lambda.min")
+    predict(myobj, Xnew, s="lambda.min", type="response")
   }
   
   coefest = coef(myobj, s="lambda.min")
