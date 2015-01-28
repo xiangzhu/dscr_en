@@ -13,7 +13,7 @@ ridge.wrapper = function(input,args){
     
   # fit the model on training set
   Xmerge = rbind(Xvalid, Xtrain)
-  Ymerge = rbind(Yvalid, Ytrain)
+  Ymerge = c(Yvalid, Ytrain)
   myobj = cv.glmnet(Xmerge, Ymerge, family="gaussian", alpha=0, nfolds=Mytune,intercept=FALSE)
   
   # output prediction function and point estimate

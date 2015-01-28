@@ -23,14 +23,14 @@ lasso.wrapper = function(input,args){
       testobj = enet(Xtrain, Ytrain, lambda)
       for(j in 1:Myiter){
         tuning = 1+(j-1)*0.05
-        Yvalid_fitted = predict(testobj, Xvalid, s=tuning, type="fit", mode="step")$fit
+        Yvalid_fitted = predict.enet(testobj, Xvalid, s=tuning, type="fit", mode="step")$fit
         valid_mse[j] = mean((Yvalid_fitted-Yvalid)^2)
       }
     optimS = (which(valid_mse == min(valid_mse), arr.ind = TRUE)[2]-1)*0.05+1
   } else{
     # K-fold CV
       Xmerge = rbind(Xvalid, Xtrain)
-      Ymerge = rbind(Yvalid, Ytrain)
+      Ymerge = c(Yvalid, Ytrain)
       cvobj = cv.enet(Xmerge, Ymerge, K=Mytune, lambda, s=seq(1,1+(Myiter-1)*0.05,length=Myiter), mode="step", plot.it=FALSE, se=FALSE)
       optimS = (which.min(cvobj$cv)-1)*0.05+1
   }

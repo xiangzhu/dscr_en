@@ -25,7 +25,7 @@ elasticnet.wrapper = function(input,args){
       testobj = enet(Xtrain, Ytrain, lambda_list[i])
       for(j in 1:Myiter){
         tuning = 1+(j-1)*0.05
-        Yvalid_fitted = predict(testobj, Xvalid, s=tuning, type="fit", mode="step")$fit
+        Yvalid_fitted = predict.enet(testobj, Xvalid, s=tuning, type="fit", mode="step")$fit
         valid_mse[i,j] = mean((Yvalid_fitted-Yvalid)^2)
       }
     }
@@ -37,7 +37,7 @@ elasticnet.wrapper = function(input,args){
     ostep_list = rep(0, num_list)
     for (j in 1:num_list){
       Xmerge = rbind(Xvalid, Xtrain)
-      Ymerge = rbind(Yvalid, Ytrain)
+      Ymerge = c(Yvalid, Ytrain)
       cvobj = cv.enet(Xmerge, Ymerge, K=Mytune, lambda_list[j], s=seq(1,1+(Myiter-1)*0.05,length=Myiter), mode="step", plot.it=FALSE, se=FALSE)
       cvmin_list[j] = min(cvobj$cv)
       ostep_list[j] = (which.min(cvobj$cv)-1)*0.05+1
