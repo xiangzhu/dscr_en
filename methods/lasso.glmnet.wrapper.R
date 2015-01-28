@@ -3,7 +3,7 @@
 #the output should be a list of the appropriate "output" format (defined in the README)
 library(glmnet)
 
-ridge.wrapper = function(input,args){
+lasso.glmnet.wrapper = function(input,args){
 
   Xvalid = input$Xvalid
   Yvalid = input$Yvalid
@@ -14,7 +14,7 @@ ridge.wrapper = function(input,args){
   # fit the model on training set
   Xmerge = rbind(Xvalid, Xtrain)
   Ymerge = rbind(Yvalid, Ytrain)
-  myobj = cv.glmnet(Xmerge, Ymerge, family="gaussian", alpha=0, nfolds=Mytune,intercept=FALSE)
+  myobj = cv.glmnet(Xmerge, Ymerge, alpha=1, nfolds=Mytune, intercept=FALSE)
   
   # output prediction function and point estimate
   predict <- function(Xnew){
