@@ -10,7 +10,6 @@ naive.elasticnet.wrapper = function(input,args){
   Xtrain = input$Xtrain
   Ytrain = input$Ytrain
   Mytune = args$Mytune
-  Myiter = args$Myiter
 
   p = dim(Xtrain)[2]
   Myiter = length(seq(1, p, 0.05));
@@ -26,7 +25,7 @@ naive.elasticnet.wrapper = function(input,args){
       testobj = enet(Xtrain, Ytrain, lambda_list[i])
       for(j in 1:Myiter){
         tuning = 1+(j-1)*0.05
-        Yvalid_fitted = predict(testobj, Xvalid, s=tuning, type="fit", mode="step", naive=TRUE)$fit
+        Yvalid_fitted = predict.enet(testobj, Xvalid, s=tuning, type="fit", mode="step", naive=TRUE)$fit
         valid_mse[i,j] = mean((Yvalid_fitted-Yvalid)^2)
       }
     }

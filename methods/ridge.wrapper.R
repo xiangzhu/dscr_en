@@ -1,7 +1,7 @@
 #define your methods in .R files like this one in the methods subdirectory
 #each method should take arguments input and args, like the example
 #the output should be a list of the appropriate "output" format (defined in the README)
-library(elasticnet)
+library(glmnet)
 
 ridge.wrapper = function(input,args){
 
@@ -10,7 +10,6 @@ ridge.wrapper = function(input,args){
   Xtrain = input$Xtrain
   Ytrain = input$Ytrain
   Mytune = args$Mytune
-  Myiter = args$Myiter
   
   p = dim(Xtrain)[2]
   Myiter = length(seq(1, p, 0.05));
@@ -24,7 +23,7 @@ ridge.wrapper = function(input,args){
       testobj = enet(Xtrain, Ytrain, lambda)
       for(j in 1:Myiter){
         tuning = 1+(j-1)*0.05
-        Yvalid_fitted = predict(testobj, Xvalid, s=tuning, type="fit", mode="step")$fit
+        Yvalid_fitted = predict.enet(testobj, Xvalid, s=tuning, type="fit", mode="step")$fit
         valid_mse[j] = mean((Yvalid_fitted-Yvalid)^2)
       }
     optimS = (which(valid_mse == min(valid_mse), arr.ind = TRUE)[2]-1)*0.05+1
