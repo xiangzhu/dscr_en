@@ -16,7 +16,7 @@ args_eg3 = list(Ntrain=100, Ntestt=400, Nvalid=100, design="eqlcorr", resstd=15,
 beta4 = c(rep(3, 15), rep(0, 25))
 args_eg4 = list(Ntrain=50, Ntestt=400, Nvalid=50, design="grouped", resstd=15, mybeta=beta4)
 
-scenarios[[1]]=list(name="example_1", fn=datamaker, args=args_eg1, seed=1:100)
-scenarios[[2]]=list(name="example_2", fn=datamaker, args=args_eg2, seed=1:100)
-scenarios[[3]]=list(name="example_3", fn=datamaker, args=args_eg3, seed=1:100)
-scenarios[[4]]=list(name="example_4", fn=datamaker, args=args_eg4, seed=1:100)
+scenarios[[1]]=list(name="example_1", fn=datamaker, args=args_eg1, seed=1:50)
+scenarios[[2]]=list(name="example_2", fn=datamaker, args=args_eg2, seed=1:50)
+scenarios[[3]]=list(name="example_3", fn=datamaker, args=args_eg3, seed=1:50)
+scenarios[[4]]=list(name="example_4", fn=datamaker, args=args_eg4, seed=1:50)
