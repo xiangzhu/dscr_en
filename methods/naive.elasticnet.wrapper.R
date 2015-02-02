@@ -19,7 +19,6 @@ naive.elasticnet.wrapper = function(input,args){
   num_list = length(lambda_list)
   valid_mse = matrix(0, nrow=num_list, ncol=Myiter)
   
-  if(is.null(Mytune)){
     # the method used in Zou and Hastie (2005)
     for(i in 1:num_list){
       testobj = enet(Xtrain, Ytrain, lambda_list[i])
@@ -31,21 +30,7 @@ naive.elasticnet.wrapper = function(input,args){
     }
     lambda = lambda_list[which(valid_mse == min(valid_mse), arr.ind = TRUE)[1]]
     optimS = (which(valid_mse == min(valid_mse), arr.ind = TRUE)[2]-1)*0.05+1
-  } else{
-    # K-fold CV
-    cvmin_list = rep(0, num_list)
-    ostep_list = rep(0, num_list)
-    for (j in 1:num_list){
-      Xmerge = rbind(Xvalid, Xtrain)
-      Ymerge = c(Yvalid, Ytrain)
-      cvobj = cv.enet(Xmerge, Ymerge, K=Mytune, lambda_list[j], s=seq(1,1+(Myiter-1)*0.05,length=Myiter), mode="step", plot.it=FALSE, se=FALSE)
-      cvmin_list[j] = min(cvobj$cv)
-      ostep_list[j] = (which.min(cvobj$cv)-1)*0.05+1
-    }
-    lambda = lambda_list[which.min(cvmin_list)] 
-    optimS = ostep_list[which.min(cvmin_list)]
-  }
-    
+     
   # fit the model on training set
   myobj = enet(Xtrain, Ytrain, lambda)
   

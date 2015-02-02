@@ -18,7 +18,6 @@ lasso.wrapper = function(input,args){
   lambda = 0;
   valid_mse = matrix(0, nrow=1, ncol=Myiter)
   
-  if(is.null(Mytune)){
     # the method used in Zou and Hastie (2005)
       testobj = enet(Xtrain, Ytrain, lambda)
       for(j in 1:Myiter){
@@ -27,14 +26,7 @@ lasso.wrapper = function(input,args){
         valid_mse[j] = mean((Yvalid_fitted-Yvalid)^2)
       }
     optimS = (which(valid_mse == min(valid_mse), arr.ind = TRUE)[2]-1)*0.05+1
-  } else{
-    # K-fold CV
-      Xmerge = rbind(Xvalid, Xtrain)
-      Ymerge = c(Yvalid, Ytrain)
-      cvobj = cv.enet(Xmerge, Ymerge, K=Mytune, lambda, s=seq(1,1+(Myiter-1)*0.05,length=Myiter), mode="step", plot.it=FALSE, se=FALSE)
-      optimS = (which.min(cvobj$cv)-1)*0.05+1
-  }
-    
+      
   # fit the model on training set
   myobj = enet(Xtrain, Ytrain, lambda)
   
