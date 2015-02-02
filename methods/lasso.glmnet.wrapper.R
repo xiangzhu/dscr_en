@@ -17,11 +17,11 @@ lasso.glmnet.wrapper = function(input,args){
   myobj = cv.glmnet(Xmerge, Ymerge, alpha=1, nfolds=Mytune, intercept=FALSE)
   
   # output prediction function and point estimate
-  predict <- function(Xnew){
-    predict(myobj, Xnew, s="lambda.min", type="response")
+  predict.func <- function(Xnew){
+    predict(myobj, Xnew, s="lambda.min")
   }
   
-  coefest = coef(myobj, s="lambda.min")
+  coefest = as.vector(coef(myobj, s="lambda.min")[-1])
 
-  return(list(predict=predict, coefest=coefest))
+  return(list(predict=predict.func, coefest=coefest))
 }
