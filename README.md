@@ -1,13 +1,49 @@
-# dscr-template
-a template repository for a dynamic statistical comparison
+# Goal
 
-# How to use this to set up a new DSC
+Dynamic statistical comparison of high-dimensional regression based on the simulation study of Elastic-Net (Zou and Hastie, 2005)
 
-1. Clone this repo.
-2. Put at least one datamaker function in a .R file in the datamakers directory (all .R files in this directory will be sourced before scenarios.R). See the file datamakers/eg_datamaker.R for example.
-3. Put at least one method function in a .R file in the methods directory (all .R files in this directory will be sourced before methods.R). See the file methods/eg_method.R
-4. edit the file scenarios.R to define your scenarios 
-5. edit the file methods.R to define your methods
-6. edit the file score.R to define your scoring function
-7. replace the text in this README.md file with a description of the DSC. Include background, and definitions of the structure of the objects 'meta', 'input', and 'output' that is used by your DSC.
-8. Run your DSC by running 'source("run_dsc.R")' in R. [Make sure you have installed the 'dscr' package first!]
+# Background 
+
+For a general introduction to DSCs, see [here](https://github.com/stephens999/dscr/blob/master/intro.md).
+
+Here provide general background on the problem that methods in this DSC are attempting to do.
+Provide enough detail so that someone could work out whether their method might be appropriate to add to the DSC.
+
+# Input, meta and output formats
+
+This DSC uses the following formats:
+
+`input: list(Xtrain = numeric matrix, Ytrain = numeric matrix, Xvalid = numeric matrix, Yvalid = numeric matrix)` # `(Xtrain, Ytrain)`: training set of (predictor, response); `(Xvalid, Yvalid)`: validation set of (predictor, response); 
+
+`meta: list(Xtestt = numeric matrix, Ytestt = numeric matrix, mybeta = numeric vector, resstd = numeric scalar)` # `(Xtestt, Ytestt)`: testing set of (predictor, response); `mybeta`: true value of the regression coefficients; `resstd`: true value of residual standard deviation
+
+`output: list(predict = R function, coefest = numeric vector)` # `predict`: prediction function; `coefest`: estimated regression coefficients
+
+
+# Scores
+
+Provide a summary of how methods are scored.
+
+See [score.R](score.R).
+
+# To add a method
+
+To add a method there are two steps.
+
+- add a `.R` file containing an R function implenting that method to the `methods/` subdirectory
+- add the method to the list of methods in the `methods.R` file.
+
+Each method function must take arguments `(input,args)` where `input` is a list with the correct format (defined above), and `args` is a list containing any additional arguments the method requires. Here `args=list(Mytune = numeric scalar)`, denoting the number of folds in cross validation (if applicable). 
+
+Each method function must return `output`, where `output` is a list with the correct format (defined above).
+
+# To add a scenario
+
+To add a scenario there are two steps, the first of which can be skipped if you are using an existing datamaker function
+
+- add a `.R` file containing an R function implenting a datamaker to the `datamakers/` subdirectory
+- add the scenario to the list of scenarios in the `scenarios.R` file.
+
+Each datamaker function must return a `list(meta,input)` where `meta` and `input` are each lists with the correct format
+(defined above).
+
