@@ -19,7 +19,7 @@ This DSC uses the following formats:
 
 `output: list(predict = R function, coefest = numeric vector)` # `predict`: prediction function; `coefest`: estimated regression coefficients
 
-NB: the only input for the `prediction` function is `Xtestt`; the output of `prediction` might varies but must be a list, storing the predicted value in `fit`. 
+NB: the only input for the `predict` function is `Xtestt`; the output of `prediction` might varies but must be a list, with the predicted value store in `fit`. 
 
 # Scores
 
